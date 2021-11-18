@@ -36,4 +36,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Training Material
 
 [Intro to Next.js](https://hendrixer.github.io/nextjs-course/)
+
 [Next.js course app repo](https://github.com/Hendrixer/nextjs-course-app)
