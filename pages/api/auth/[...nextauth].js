@@ -52,8 +52,8 @@ async function refreshAccessToken(token) {
 export default NextAuth({
   providers: [
     Providers.IdentityServer4({
-      id: "oidc",
-      name: "OpenIdConnect",
+      id: "openid-connect",
+      name: "openid-connect",
       issuer: process.env.AUTHENTICATION_SERVER,
       domain: process.env.AUTHENTICATION_SERVER,
       clientId: process.env.AUTHENTICATION_CLIENT,
