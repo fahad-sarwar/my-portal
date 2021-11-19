@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-import { redirect } from "next/dist/server/api-utils";
-import { loadDefaultErrorComponents } from "next/dist/server/load-components";
+import axios from 'axios';
+import qs from 'qs';
 
 async function refreshAccessToken(token) {
   try {
@@ -54,43 +54,35 @@ export default NextAuth({
     Providers.IdentityServer4({
       id: "openid-connect",
       name: "openid-connect",
-      issuer: process.env.AUTHENTICATION_SERVER,
+      scope: process.env.AUTHENTICATION_SCOPE,
       domain: process.env.AUTHENTICATION_SERVER,
       clientId: process.env.AUTHENTICATION_CLIENT,
       clientSecret: process.env.AUTHENTICATION_SECRET,
-      scope: process.env.AUTHENTICATION_SCOPE,
     }),
   ],
   session: {
     jwt: true,
   },
+  jwt: {},
   callbacks: {
     async signIn(
       user,
       account,
-      profile,
-      session,
-      accessToken,
-      refreshToken,
-      params,
-      req,
-      res
+      profile
     ) {
-      console.log(`signIn: user='${user}'`);
-      // Do something with the user
-      // For example, store the user ID in the session
-      session.userId = user.id;
-      // Or if you want to keep the user's email address,
-      // you can store it in the session
-      session.email = user.email;
+      console.log(`signIn: user='${JSON.stringify(user)}'`);
+      console.log(`signIn: account='${JSON.stringify(account)}'`);
+      console.log(`signIn: profile='${JSON.stringify(profile)}'`);
       return true;
     },
-    async redirect(url, req, res) {
+    async redirect(url, baseUrl) {
       console.log(`redirect: url='${url}'`);
       return url;
     },
     async session(session, token) {
-      console.log(`session: sessionInfo='${session}'`);
+      console.log(`session: sessionInfo='${JSON.stringify(session)}'`);
+      session.userId = token.userId;
+      session.email = token.email;
       session.accessToken = token.accessToken;
       session.refreshToken = token.refreshToken;
       session.error = token.error;
@@ -99,8 +91,11 @@ export default NextAuth({
       return Promise.resolve(session);
     },
     async jwt(token, user, account, profile, isNewUser) {
-      console.log(`jwt: token='${token}'`);
-      console.log(`jwt: user='${user}'`);
+      console.log(`jwt: token='${JSON.stringify(token)}'`);
+      console.log(`jwt: user='${JSON.stringify(user)}'`);
+      console.log(`jwt: account='${JSON.stringify(account)}'`);
+      console.log(`jwt: profile='${JSON.stringify(profile)}'`);
+      console.log(`jwt: isNewUser='${JSON.stringify(isNewUser)}'`);
 
       if (account) {
         token.accessToken = account.accessToken;
@@ -108,13 +103,14 @@ export default NextAuth({
         token.expires = Date.now() + account.expiresIn * 1000;
       }
 
-      if (Date.now() < +token.expires) {
-        console.log("Token date valid.");
-        return token;
-      }
+      return token;
+      // if (Date.now() < +token.expires) {
+      //   console.log("Token date valid.");
+      //   return token;
+      // }
 
-      console.log("Token expired");
-      return refreshAccessToken(token);
+      // console.log("Token expired");
+      // return refreshAccessToken(token);
     },
   },
   events: {
@@ -137,5 +133,5 @@ export default NextAuth({
         console.log(err, "NEXTJS EVENT ERROR CAPTURE");
     },
   },
-  debug: true
+  debug: process.env.NODE_ENV !== "production",
 });
