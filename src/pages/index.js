@@ -12,10 +12,13 @@ const Index = () => {
     return <div className="text-xl text-zenGreen">Please sign in</div>;
   }
 
+  
+  console.log(session);
+
   return (
     <>
       <div className="text-xl text-zenGreen-dark font-bold">
-        Hello {session.user.email}, welcome to your Customer Portal!
+        Hello {session.user.name}, welcome to your Customer Portal!
       </div>
       <div className="grid grid-cols-3 gap-4">
         <Card title="My bills">

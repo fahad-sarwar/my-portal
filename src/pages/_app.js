@@ -4,7 +4,7 @@ import Head from "next/head";
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../styles/theme';
-import Nav from "../components/nav";
+import NavBar from "../components/nav-bar";
 import '../styles/globals.css'
 
 export default function App({Component, pageProps}) {
@@ -32,7 +32,7 @@ export default function App({Component, pageProps}) {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <Nav />
+        <NavBar />
 
         <ThemeProvider theme={theme}>
           <CssBaseline />
