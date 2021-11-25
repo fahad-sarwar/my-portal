@@ -1,5 +1,6 @@
 import React from "react";
 import { Provider } from "next-auth/client";
+import { HelmetProvider } from "react-helmet-async";
 import Head from "next/head";
 import ThemeConfig from "../theme";
 import GlobalStyles from "../theme/globalStyles";
@@ -24,21 +25,23 @@ export default function App({ Component, pageProps }) {
       session={pageProps.session}
     >
       <ThemeConfig>
-        <div>
-          <Head>
-            <title>My Portal</title>
-            <meta
-              name="viewport"
-              content="minimum-scale=1, initial-scale=1, width=device-width"
-            />
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
+        <HelmetProvider>
+          <div>
+            <Head>
+              <title>My Portal</title>
+              <meta
+                name="viewport"
+                content="minimum-scale=1, initial-scale=1, width=device-width"
+              />
+              <link rel="icon" href="/favicon.ico" />
+            </Head>
 
-          <NavBar />
+            <NavBar />
 
-          <GlobalStyles />
-          <Component {...pageProps} />
-        </div>
+            <GlobalStyles />
+            <Component {...pageProps} />
+          </div>
+        </HelmetProvider>
       </ThemeConfig>
     </Provider>
   );

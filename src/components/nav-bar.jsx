@@ -59,7 +59,7 @@ const NavBar = () => {
       <Avatar
         sx={{ ":hover": { cursor: "pointer" } }}
         alt={session?.user?.name.charAt(0).toUpperCase()}
-        src="/images/avatar/avatar_1.jpg"
+        src="/images/avatars/avatar_1.jpg"
         onClick={handleAccountMenuOpen}
       >
         {session?.user?.name.charAt(0).toUpperCase()}
