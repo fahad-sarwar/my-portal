@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/client";
 
 import AppBar from "@mui/material/AppBar";
@@ -38,14 +38,14 @@ const NavBar = () => {
     <Menu
       anchorEl={anchorElement}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right'
+        vertical: "top",
+        horizontal: "right",
       }}
       id={menuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right'
+        vertical: "top",
+        horizontal: "right",
       }}
       open={Boolean(anchorElement)}
       onClose={handleAccountMenuClose}
@@ -53,16 +53,23 @@ const NavBar = () => {
       <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
     </Menu>
   );
-  
+
   const rightSideMenu = session ? (
     <>
-      <Avatar sx={{ ":hover": { cursor: 'pointer' }}} onClick={handleAccountMenuOpen}>
+      <Avatar
+        sx={{ ":hover": { cursor: "pointer" } }}
+        alt={session?.user?.name.charAt(0).toUpperCase()}
+        src="/images/avatar/avatar_1.jpg"
+        onClick={handleAccountMenuOpen}
+      >
         {session?.user?.name.charAt(0).toUpperCase()}
       </Avatar>
     </>
   ) : (
     <>
-      <Button variant="outline" onClick={() => signIn("openid-connect")}>Sign In</Button>
+      <Button variant="outline" onClick={() => signIn("openid-connect")}>
+        Sign In
+      </Button>
     </>
   );
 
@@ -72,12 +79,16 @@ const NavBar = () => {
         <Toolbar>
           <IconButton
             onClick={() => setShowDrawer(!showDrawer)}
-            edge="start" 
-            sx={{ mr: 2, ...(showDrawer && { display: 'none' })}}
+            edge="start"
+            sx={{ mr: 2, ...(showDrawer && { display: "none" }) }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ marginLeft: 1, flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ marginLeft: 1, flexGrow: 1 }}
+          >
             Zen - My Portal
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
@@ -97,17 +108,17 @@ const NavBar = () => {
           onKeyDown={() => setShowDrawer(false)}
         >
           <List>
-            <ListItem button key={''} onClick={() => push(`/`)}>
-                <ListItemText primary='Home'/>
+            <ListItem button key={""} onClick={() => push(`/`)}>
+              <ListItemText primary="Home" />
             </ListItem>
-            <ListItem button key={'bills'} onClick={() => push(`/bills`)}>
-                <ListItemText primary='Bills'/>
+            <ListItem button key={"bills"} onClick={() => push(`/bills`)}>
+              <ListItemText primary="Bills" />
             </ListItem>
-            <ListItem button key={'orders'} onClick={() => push(`/orders`)}>
-                <ListItemText primary='Orders'/>
+            <ListItem button key={"orders"} onClick={() => push(`/orders`)}>
+              <ListItemText primary="Orders" />
             </ListItem>
-            <ListItem button key={'services'} onClick={() => push(`/services`)}>
-                <ListItemText primary='Services'/>
+            <ListItem button key={"services"} onClick={() => push(`/services`)}>
+              <ListItemText primary="Services" />
             </ListItem>
           </List>
         </Box>
