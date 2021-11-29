@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/client";
-
+import Image from "next/image";
+import NotificationsPopover from "./NotificationsPopover";
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -57,7 +58,11 @@ const NavBar = () => {
 
   const rightSideMenu = session ? (
     <>
-      <Stack direction="row" alignItems="center" spacing={{ xs: 5, sm: 5, m: 5 }}>
+      <Stack
+        direction="row"
+        alignItems="center"
+        spacing={{ xs: 5, sm: 5, m: 5 }}
+      >
         <Button
           key="home"
           onClick={() => push(`/`)}
@@ -86,6 +91,14 @@ const NavBar = () => {
         >
           Services
         </Button>
+        <Button
+          key="help"
+          onClick={() => push(`/help`)}
+          sx={{ my: 2, color: "white", display: "block" }}
+        >
+          Help
+        </Button>
+        {/* <NotificationsPopover /> */}
         <Avatar
           sx={{ ":hover": { cursor: "pointer" } }}
           alt={session?.user?.name.charAt(0).toUpperCase()}
@@ -108,6 +121,12 @@ const NavBar = () => {
     <Box sx={{ flexGrow: 1, marginBottom: 2 }}>
       <AppBar position="static">
         <Toolbar>
+          <Image
+            src="/images/zen-logo.png"
+            alt="Zen Internet"
+            width={64}
+            height={64}
+          />
           {/* <IconButton
             onClick={() => setShowDrawer(!showDrawer)}
             edge="start"
