@@ -14,6 +14,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
@@ -56,14 +57,44 @@ const NavBar = () => {
 
   const rightSideMenu = session ? (
     <>
-      <Avatar
-        sx={{ ":hover": { cursor: "pointer" } }}
-        alt={session?.user?.name.charAt(0).toUpperCase()}
-        src="/images/avatars/avatar_1.jpg"
-        onClick={handleAccountMenuOpen}
-      >
-        {session?.user?.name.charAt(0).toUpperCase()}
-      </Avatar>
+      <Stack direction="row" alignItems="center" spacing={{ xs: 5, sm: 5, m: 5 }}>
+        <Button
+          key="home"
+          onClick={() => push(`/`)}
+          sx={{ my: 2, color: "white", display: "block" }}
+        >
+          Home
+        </Button>
+        <Button
+          key="bills"
+          onClick={() => push(`/bills`)}
+          sx={{ my: 2, color: "white", display: "block" }}
+        >
+          Bills
+        </Button>
+        <Button
+          key="orders"
+          onClick={() => push(`/orders`)}
+          sx={{ my: 2, color: "white", display: "block" }}
+        >
+          Orders
+        </Button>
+        <Button
+          key="services"
+          onClick={() => push(`/services`)}
+          sx={{ my: 2, color: "white", display: "block" }}
+        >
+          Services
+        </Button>
+        <Avatar
+          sx={{ ":hover": { cursor: "pointer" } }}
+          alt={session?.user?.name.charAt(0).toUpperCase()}
+          src="/images/avatars/avatar_1.jpg"
+          onClick={handleAccountMenuOpen}
+        >
+          {session?.user?.name.charAt(0).toUpperCase()}
+        </Avatar>
+      </Stack>
     </>
   ) : (
     <>
@@ -77,13 +108,13 @@ const NavBar = () => {
     <Box sx={{ flexGrow: 1, marginBottom: 2 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             onClick={() => setShowDrawer(!showDrawer)}
             edge="start"
             sx={{ mr: 2, ...(showDrawer && { display: "none" }) }}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography
             variant="h6"
             component="div"

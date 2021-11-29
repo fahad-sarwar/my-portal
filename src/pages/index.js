@@ -1,7 +1,12 @@
 import { useSession, signIn, signOut } from "next-auth/client";
 import Page from "../components/Page";
-import { Box, Card, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import BillingWidget from "../components/billing/billing-widget";
+import BroadbandWidget from "../components/services/broadband-widget";
+import HomePhoneWidget from "../components/services/home-phone-widget";
+import ServiceInfoWidget from "../components/services/service-info-widget";
+import ContractWidget from "../components/billing/contract-widget";
+import ReferralWidget from "../components/marketing/referral-widget";
 
 const Index = () => {
   const [session, loading] = useSession();
@@ -29,19 +34,19 @@ const Index = () => {
             <BillingWidget />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <BillingWidget />
+            <BroadbandWidget />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <BillingWidget />
+            <HomePhoneWidget />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <BillingWidget />
+            <ServiceInfoWidget />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <BillingWidget />
+            <ContractWidget />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <BillingWidget />
+            <ReferralWidget />
           </Grid>
         </Grid>
       </Container>
